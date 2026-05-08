@@ -72,6 +72,7 @@ export class App {
     private _exitResolve: ((code: number) => void) | null = null;
     private _unsubKey: (() => void) | null = null;
     private _unsubMouse: (() => void) | null = null;
+    private _widgetById = new Map<string, any>();
 
     constructor(rootWidget: RootWidget, options: AppOptions = {}) {
         this._rootWidget = rootWidget;
@@ -240,6 +241,9 @@ export class App {
         // Sync computed rects from layout tree back to widgets
         this._rootWidget.syncLayout?.();
 
+        // Rebuild the widget ID cache so _buildBubbleChain can do O(1) lookups
+        this._buildWidgetMap(this._rootWidget);
+
         // Clear the back buffer and render widgets into it
         this.screen.clear();
         this._rootWidget.render(this.screen);
@@ -280,10 +284,11 @@ export class App {
     /**
      * Build the bubble chain for keyboard events.
      * Returns an array: [focused widget, parent, grandparent, ..., root]
+     * Uses the cached _widgetById map for O(1) lookup instead of DFS.
      */
     private _buildBubbleChain(widgetId: string): Array<{ events: { emit: (event: string, data: any) => void } }> {
         const chain: Array<{ events: { emit: (event: string, data: any) => void } }> = [];
-        const widget = this._findWidgetById(this._rootWidget as any, widgetId);
+        const widget = this._widgetById.get(widgetId);  // O(1) lookup
         if (!widget) return chain;
 
         let current: any = widget;
@@ -297,21 +302,22 @@ export class App {
     }
 
     /**
-     * Find a widget by ID in the widget tree (DFS).
-     * Uses duck-typing to work with any object that has id/children.
+     * Rebuild the widget ID cache by walking the entire widget tree.
+     * Called after syncLayout() so the map stays current.
      */
-    private _findWidgetById(root: any, id: string): any | null {
-        if (root.id === id) return root;
+    private _buildWidgetMap(root: any): void {
+        this._widgetById.clear();
+        this._walkWidget(root);
+    }
 
-        // Check children if the widget has them
-        const children = root._children ?? root.children ?? [];
+    private _walkWidget(widget: any): void {
+        if (!widget) return;
+        if (widget.id) this._widgetById.set(widget.id, widget);
+        const children = widget._children ?? widget.children ?? [];
         if (Array.isArray(children)) {
             for (const child of children) {
-                const found = this._findWidgetById(child, id);
-                if (found) return found;
+                this._walkWidget(child);
             }
         }
-
-        return null;
     }
 }
