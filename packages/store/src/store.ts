@@ -88,8 +88,11 @@ export function createStore<T extends object>(
             : partial;
         const nextState = { ...state, ...nextPartial };
 
-        // Only notify if something actually changed
-        if (!Object.is(state, nextState)) {
+        // Only notify if at least one key's value actually changed
+        const hasChanged = Object.keys(nextPartial).some(
+            key => !Object.is((state as any)[key], (nextState as any)[key])
+        );
+        if (hasChanged) {
             state = nextState;
             for (const listener of listeners) {
                 listener(state, prevState);
