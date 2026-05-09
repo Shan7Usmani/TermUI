@@ -96,7 +96,7 @@ export class LineChart extends Widget {
         // Render Y axis
         if (this._showYAxis && yAxisWidth > 0) {
             for (let row = 0; row < plotHeight; row++) {
-                const v = max - (row / (plotHeight - 1)) * range;
+                const v = plotHeight > 1 ? max - (row / (plotHeight - 1)) * range : max;
                 if (row === 0 || row === plotHeight - 1) {
                     const label = v.toFixed(0).padStart(yAxisWidth - 1, ' ');
                     screen.writeString(x, y + row, label + '┤', { ...attrs, dim: true });

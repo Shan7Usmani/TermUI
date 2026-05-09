@@ -8,7 +8,6 @@ export interface ToastOptions { position?: 'top-right' | 'bottom-right' | 'top-l
 
 const ICONS_UNICODE: Record<ToastType, string> = { info: 'ℹ', success: '✓', warning: '⚠', error: '✗' };
 const ICONS_ASCII: Record<ToastType, string> = { info: 'i', success: '+', warning: '!', error: 'x' };
-const ICONS: Record<ToastType, string> = caps.unicode ? ICONS_UNICODE : ICONS_ASCII;
 const COLORS: Record<ToastType, string> = { info: 'cyan', success: 'green', warning: 'yellow', error: 'red' };
 
 export class Toast extends Widget {
@@ -41,10 +40,11 @@ export class Toast extends Widget {
         const isBottom = this._position.includes('bottom');
         const sx = isRight ? x + width - tw - 1 : x + 1;
         const sy = isBottom ? y + height - visible.length - 1 : y + 1;
+        const icons = caps.unicode ? ICONS_UNICODE : ICONS_ASCII;
         const attrs = styleToCellAttrs(this.style);
         for (let i = 0; i < visible.length; i++) {
             const m = visible[i];
-            const label = ` ${ICONS[m.type]} ${m.text} `.slice(0, tw).padEnd(tw);
+            const label = ` ${icons[m.type]} ${m.text} `.slice(0, tw).padEnd(tw);
             screen.writeString(sx, sy + i, label, { ...attrs, fg: { type: 'named', name: COLORS[m.type] as any }, bold: true });
         }
     }

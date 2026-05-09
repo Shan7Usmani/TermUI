@@ -42,7 +42,7 @@ describe('ProgressBar — ASCII fallback', () => {
         vi.resetModules();
     });
 
-    it('uses "#" for fill and " " for empty when NO_UNICODE=1', async () => {
+    it('uses "#" for fill and "-" for empty when NO_UNICODE=1', async () => {
         vi.stubEnv('NO_UNICODE', '1');
         vi.stubEnv('TERM', '');
         vi.resetModules();
@@ -51,7 +51,7 @@ describe('ProgressBar — ASCII fallback', () => {
         const fillChar = (pb as unknown as { _fillChar: string })._fillChar;
         const emptyChar = (pb as unknown as { _emptyChar: string })._emptyChar;
         expect(fillChar).toBe('#');
-        expect(emptyChar).toBe(' ');
+        expect(emptyChar).toBe('-');
     });
 
     it('uses "█" for fill when unicode is available', async () => {

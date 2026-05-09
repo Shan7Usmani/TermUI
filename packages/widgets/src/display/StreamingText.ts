@@ -72,12 +72,14 @@ export class StreamingText extends Widget {
     /** Lifecycle: start the blink timer (only when motion is enabled). */
     mount(): void {
         super.mount();
-        if (caps.motion) {
-            this._blinkUnsub = timerPoolSubscribe(this._blinkInterval, () => {
-                this._cursorVisible = !this._cursorVisible;
-                this.markDirty();
-            });
+        if (!caps.motion) {
+            this._cursorVisible = false;  // Don't show cursor in reduced-motion
+            return;
         }
+        this._blinkUnsub = timerPoolSubscribe(this._blinkInterval, () => {
+            this._cursorVisible = !this._cursorVisible;
+            this.markDirty();
+        });
     }
 
     /** Lifecycle: stop the blink timer. */

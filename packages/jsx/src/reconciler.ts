@@ -257,8 +257,9 @@ export function reconcile(vnode: VNode, parentWidget?: Widget): Widget {
         // Intrinsic element (string tag)
         const widget = createIntrinsicWidget(type, props, children);
 
-        // Add children (except for Text, which handles content inline)
-        if (type.toLowerCase() !== 'text') {
+        // Add children (except for self-contained widgets that handle content via props/internal render)
+        const SELF_CONTAINED = new Set(['text', 'statusmessage', 'banner', 'keyvalue', 'sidebar', 'divider']);
+        if (!SELF_CONTAINED.has(type.toLowerCase())) {
             for (const child of children) {
                 widget.addChild(reconcile(child, widget));
             }

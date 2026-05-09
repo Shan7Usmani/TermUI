@@ -71,9 +71,12 @@ export class NumberInput extends Widget {
         this.markDirty();
     }
 
-    /** Accept only digits, '-' at position 0, and (optionally) one '.'. */
+    /** Accept only digits, '-' at position 0 (if min < 0), and (optionally) one '.'. */
     private _isAllowed(char: string): boolean {
-        if (char === '-' && this._cursorPos === 0 && !this._raw.includes('-')) return true;
+        // Only allow '-' at position 0 if min is negative
+        if (char === '-' && this._cursorPos === 0 && !this._raw.includes('-')) {
+            return this._min < 0;
+        }
         if (char === '.' && this._allowDecimal && !this._raw.includes('.')) return true;
         return /^\d$/.test(char);
     }

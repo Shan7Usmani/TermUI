@@ -23,6 +23,13 @@ export interface PathInputOptions {
     onSubmit?: (value: string) => void;
 }
 
+/**
+ * PathInput — filesystem path input with Tab-completion.
+ *
+ * @note height must be at least (maxCompletions + 2) to show completions.
+ * Default height of 3 shows up to 1 completion. If height is insufficient,
+ * the input line is still rendered but completions are hidden.
+ */
 export class PathInput extends Widget {
     private _value = '';
     private _cursorPos = 0;
@@ -204,6 +211,11 @@ export class PathInput extends Widget {
 
         const attrs = styleToCellAttrs(this._style);
 
+        // ── Defensive: if height insufficient for completions, hide them ──
+        if (height <= 1 && this._showCompletions) {
+            this._showCompletions = false;
+        }
+
         // ── Input line ──
         if (this._value.length === 0 && !this.isFocused) {
             screen.writeString(x, y, truncate(this._placeholder, width), { ...attrs, dim: true });
@@ -232,6 +244,8 @@ export class PathInput extends Widget {
         }
 
         // ── Completion list (rendered below the input line) ──
+        // Requires height >= maxCompletions + 2 (input line + separator).
+        // Default height=3 shows up to 1 completion.
         if (this._showCompletions && this._completions.length > 0 && height > 1) {
             const maxRows = Math.min(this._completions.length, height - 1);
             for (let i = 0; i < maxRows; i++) {

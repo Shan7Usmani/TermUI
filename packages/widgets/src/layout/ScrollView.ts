@@ -89,8 +89,11 @@ export class ScrollView extends Widget {
                 width: origRect.width,
                 height: origRect.height,
             };
-            child.render(screen);
-            (child as any)._rect = origRect;
+            try {
+                child.render(screen);
+            } finally {
+                (child as any)._rect = origRect;
+            }
         }
 
         if (shouldClip) screen.popClip();
