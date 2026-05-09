@@ -227,7 +227,7 @@ ${config.features.dataProviders
                     <text color={theme.colors.muted}>Press r to refresh, q to quit</text>
                     <text>Tick: {tick}</text>
 ${config.features.dataProviders
-    ? `                    <skeleton variant="text" />`
+    ? `                    <skeleton variant="shimmer" />`
     : `                    <text>node    PID:1234  CPU: {(cpuVal * 100).toFixed(1)}%</text>
                     <text>chrome  PID:5678  MEM: {(memVal * 100).toFixed(1)}%</text>`}
                 </box>
@@ -265,9 +265,9 @@ import { AutoThemeProvider, useTheme } from '@termuijs/tss';
 import { caps } from '@termuijs/core';
 
 // ASCII-safe symbols
-const CHECK  = caps.unicode ? 'v' : 'v';
-const BULLET = caps.unicode ? '>' : '>';
-const SEP    = caps.unicode ? '-'.repeat(40) : '-'.repeat(40);
+const CHECK  = caps.unicode ? '✓' : 'v';
+const BULLET = caps.unicode ? '›' : '>';
+const SEP    = caps.unicode ? '─'.repeat(40) : '-'.repeat(40);
 
 const INITIAL_ITEMS = ['Option A', 'Option B', 'Option C'];
 
@@ -385,6 +385,7 @@ function CliWrapper() {
     ]);
     const [running, setRunning] = useState(false);
     const [exitCode, setExitCode] = useState<number | null>(null);
+    const procRef = useRef<any>(null);
     const theme = useTheme();
 
     const addLog = (level: LogLevel, text: string) =>
@@ -398,6 +399,7 @@ function CliWrapper() {
         addLog('info', \`\${ICON_RUN} Running command...\`);
 
         const proc = spawn('echo', ['Hello from CLI wrapper!']);
+        procRef.current = proc;
         proc.stdout.on('data', (d: Buffer) => {
             for (const line of d.toString().split('\\n').filter(Boolean)) {
                 addLog('info', line);
@@ -413,17 +415,26 @@ function CliWrapper() {
             setExitCode(code);
             addLog(code === 0 ? 'info' : 'error',
                 \`\${code === 0 ? ICON_DONE : ICON_ERR} Process exited with code \${code ?? 'null'}\`);
+            procRef.current = null;
         });
     };
 
-    // Auto-run on mount
-    useEffect(() => { runCommand(); }, []);
+    // Auto-run on mount, kill process on unmount
+    useEffect(() => {
+        runCommand();
+        return () => {
+            if (procRef.current) {
+                procRef.current.kill();
+                procRef.current = null;
+            }
+        };
+    }, []);
 
     useKeymap([
         { key: 'q',          action: () => process.exit(0),  description: 'Quit' },
         { key: 'c', ctrl: true, action: () => process.exit(0), description: 'Quit' },
         { key: 'r',          action: runCommand,             description: 'Re-run command' },
-        { key: 'c',          action: () => setLogs([]),       description: 'Clear logs' },
+        { key: 'l',          action: () => setLogs([]),       description: 'Clear logs' },
     ]);
 
     return (
@@ -434,7 +445,7 @@ function CliWrapper() {
                     {running ? 'Running...' : exitCode === null ? 'Ready' : \`Exit: \${exitCode}\`}
                 </text>
                 <spacer />
-                <text color={theme.colors.muted}>r: re-run | c: clear | q: quit</text>
+                <text color={theme.colors.muted}>r: re-run | l: clear | q: quit</text>
             </row>
             <text>{SEP}</text>
 
