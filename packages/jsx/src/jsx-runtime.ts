@@ -59,6 +59,7 @@ export namespace JSX {
         col: {
             children?: any;
             key?: string | number;
+            gap?: number;
             flexGrow?: number;
             flexShrink?: number;
             width?: number | string;
@@ -71,6 +72,7 @@ export namespace JSX {
         column: {
             children?: any;
             key?: string | number;
+            gap?: number;
             flexGrow?: number;
             flexShrink?: number;
             width?: number | string;
