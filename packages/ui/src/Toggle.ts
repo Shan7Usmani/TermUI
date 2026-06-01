@@ -10,7 +10,7 @@ export interface ToggleOptions {
 export class Toggle extends Widget {
     private _value: boolean;
     private _label?: string;
-    private _onChange?: (value: boolean) => void;
+    onChange?: (value: boolean) => void;
 
     focusable = true;
 
@@ -19,7 +19,7 @@ export class Toggle extends Widget {
 
         this._value = options.defaultValue ?? false;
         this._label = options.label;
-        this._onChange = options.onChange;
+        this.onChange = options.onChange;
     }
 
     get value(): boolean {
@@ -30,7 +30,7 @@ export class Toggle extends Widget {
         if (this._value === value) return;
 
         this._value = value;
-        this._onChange?.(value);
+        this.onChange?.(value);
         this.markDirty();
     }
 
