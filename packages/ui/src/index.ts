@@ -81,3 +81,11 @@ export { Pagination } from './Pagination.js';
 export type { PaginationOptions } from './Pagination.js';
 export { Toggle } from './Toggle.js';
 export type { ToggleOptions } from './Toggle.js';
+export { Checkbox } from './Checkbox.js';
+export type { CheckboxOptions } from './Checkbox.js';
+
+export { CheckboxGroup } from './CheckboxGroup.js';
+export type {
+    CheckboxGroupOption,
+    CheckboxGroupOptions,
+} from './CheckboxGroup.js';
