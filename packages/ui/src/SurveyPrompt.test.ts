@@ -37,10 +37,13 @@ describe('SurveyPrompt', () => {
     it('enter on a text question advances to question 2', () => {
         const prompt = new SurveyPrompt(QUESTIONS);
 
+        // Partial KeyEvent object is sufficient for this test case.
         prompt.handleKey({ key: 'J', ctrl: false, alt: false } as any);
+        // Partial KeyEvent object is sufficient for this test case.
         prompt.handleKey({ key: 'o', ctrl: false, alt: false } as any);
+        // Partial KeyEvent object is sufficient for this test case.
         prompt.handleKey({ key: 'e', ctrl: false, alt: false } as any);
-
+        // Partial KeyEvent object is sufficient for this test case.
         prompt.handleKey({ key: 'enter', ctrl: false, alt: false } as any);
 
         expect(prompt.getCurrentIndex()).toBe(1);
