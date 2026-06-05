@@ -66,16 +66,12 @@ describe('Alert — Unicode rendering', () => {
 });
 
 describe('Alert — ASCII fallback', () => {
-    const originalUnicode = caps.unicode;
-
     afterEach(() => {
-        // Cast caps to restore read-only property after tests
-        (caps as unknown as { unicode: boolean }).unicode = originalUnicode;
+        vi.restoreAllMocks();
     });
 
     it('uses ASCII borders and fallback icon for info variant when caps.unicode is false', () => {
-        // Cast caps to modify read-only property for tests
-        (caps as unknown as { unicode: boolean }).unicode = false;
+        vi.spyOn(caps, 'unicode', 'get').mockReturnValue(false);
 
         const { screen } = renderAlert({ variant: 'info', message: 'Info' });
         expect(screen.back[0][0].char).toBe('+');
@@ -85,24 +81,21 @@ describe('Alert — ASCII fallback', () => {
     });
 
     it('uses ASCII borders and fallback icon for success variant when caps.unicode is false', () => {
-        // Cast caps to modify read-only property for tests
-        (caps as unknown as { unicode: boolean }).unicode = false;
+        vi.spyOn(caps, 'unicode', 'get').mockReturnValue(false);
 
         const { screen } = renderAlert({ variant: 'success', message: 'Success' });
         expect(screen.back[2].map(c => c.char).join('')).toContain('[OK] Success');
     });
 
     it('uses ASCII borders and fallback icon for warning variant when caps.unicode is false', () => {
-        // Cast caps to modify read-only property for tests
-        (caps as unknown as { unicode: boolean }).unicode = false;
+        vi.spyOn(caps, 'unicode', 'get').mockReturnValue(false);
 
         const { screen } = renderAlert({ variant: 'warning', message: 'Warning' });
         expect(screen.back[2].map(c => c.char).join('')).toContain('[!] Warning');
     });
 
     it('uses ASCII borders and fallback icon for error variant when caps.unicode is false', () => {
-        // Cast caps to modify read-only property for tests
-        (caps as unknown as { unicode: boolean }).unicode = false;
+        vi.spyOn(caps, 'unicode', 'get').mockReturnValue(false);
 
         const { screen } = renderAlert({ variant: 'error', message: 'Error' });
         expect(screen.back[2].map(c => c.char).join('')).toContain('[x] Error');
