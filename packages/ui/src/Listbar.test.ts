@@ -1,6 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { Screen } from '@termuijs/core';
+import { type KeyEvent, createKeyEvent, Screen } from '@termuijs/core';
 import { Listbar } from './Listbar.js';
+
+function makeKey(key: string): KeyEvent {
+    return createKeyEvent({ key, raw: Buffer.alloc(0), ctrl: false, alt: false, shift: false });
+}
 
 describe('Listbar', () => {
     it('renders all labels in a single row', () => {
@@ -30,13 +34,13 @@ describe('Listbar', () => {
 
         expect(listbar.activeItem).toBe(0);
 
-        listbar.handleKey({ key: 'right', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('right'));
         expect(listbar.activeItem).toBe(1);
 
-        listbar.handleKey({ key: 'right', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('right'));
         expect(listbar.activeItem).toBe(2);
 
-        listbar.handleKey({ key: 'right', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('right'));
         expect(listbar.activeItem).toBe(0);
     });
 
@@ -47,10 +51,10 @@ describe('Listbar', () => {
             { label: 'C' },
         ]);
 
-        listbar.handleKey({ key: 'left', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('left'));
         expect(listbar.activeItem).toBe(2);
 
-        listbar.handleKey({ key: 'left', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('left'));
         expect(listbar.activeItem).toBe(1);
     });
 
@@ -61,7 +65,7 @@ describe('Listbar', () => {
             { label: 'Load' },
         ]);
 
-        listbar.handleKey({ key: 'enter', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('enter'));
         expect(action).toHaveBeenCalledTimes(1);
     });
 
@@ -75,10 +79,10 @@ describe('Listbar', () => {
 
         expect(listbar.activeItem).toBe(0);
 
-        listbar.handleKey({ key: 'right', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('right'));
         expect(listbar.activeItem).toBe(2);
 
-        listbar.handleKey({ key: 'left', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('left'));
         expect(listbar.activeItem).toBe(0);
     });
 
@@ -88,7 +92,7 @@ describe('Listbar', () => {
             { label: 'A', action: action, disabled: true },
         ]);
 
-        listbar.handleKey({ key: 'enter', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('enter'));
         expect(action).not.toHaveBeenCalled();
     });
 
@@ -98,7 +102,7 @@ describe('Listbar', () => {
             { label: 'B' },
         ]);
 
-        listbar.handleKey({ key: 'right', ctrl: false, alt: false } as any);
+        listbar.handleKey(makeKey('right'));
         expect(listbar.activeItem).toBe(1);
 
         listbar.setItems([
