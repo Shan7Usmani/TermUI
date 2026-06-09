@@ -169,6 +169,7 @@ export type { TextAreaOptions } from './TextArea.js';
 
 export { Stepper } from './Stepper.js';
 export type { StepperOptions } from './Stepper.js';
+
 export { ShortcutHelpOverlay } from './components/ShortcutHelpOverlay.js';
 export type { Shortcut, ShortcutHelpOverlayProps } from './components/ShortcutHelpOverlay.js';
 
@@ -200,3 +201,8 @@ export type { SurveyPromptOptions, SurveyQuestion } from './SurveyPrompt.js';
 
 export { Breadcrumb } from './Breadcrumb.js';
 export type { BreadcrumbItem, BreadcrumbOptions } from './Breadcrumb.js';
+
+
+export { Disclosure } from './Disclosure.js';
+export type { DisclosureOptions } from './Disclosure.js';
+
