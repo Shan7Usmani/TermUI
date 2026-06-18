@@ -273,8 +273,8 @@ export { Progress } from './feedback/Progress.js';
 export { ProgressDashboard } from "./feedback/ProgressDashboard.js";
 
 export type {
-    ProgressTask,
-    TaskStatus,
+    ProgressTask as DashboardProgressTask,
+    TaskStatus as DashboardTaskStatus,
     ProgressDashboardOptions
 } from "./feedback/ProgressDashboard.js";
 
