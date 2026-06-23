@@ -15,7 +15,7 @@ export interface RegistryEntry {
   slug: string;
   package: string;
   importPath: string;
-  category: 'display' | 'input' | 'feedback' | 'layout' | 'data' | 'hook' | 'template' | 'theme';
+  category: 'display' | 'input' | 'feedback' | 'layout' | 'data' | 'hook' | 'template';
   description: string;
   tags: string[];
 }
@@ -35,7 +35,6 @@ export function detectCategory(filePath: string): RegistryEntry['category'] {
   if (filePath.includes('/layout/')) return 'layout';
   if (filePath.includes('/data/')) return 'data';
   if (filePath.includes('packages/ui/')) return 'template';
-  if (filePath.includes('named-themes')) return 'theme';
   return 'display';
 }
 
