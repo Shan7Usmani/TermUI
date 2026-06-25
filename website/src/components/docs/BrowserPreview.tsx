@@ -104,8 +104,6 @@ export function BrowserPreview({
         const term = new XTerm({
             convertEol: true,
             disableStdin: false,
-            cols,
-            rows,
             cursorBlink: true,
             theme: {
                 background: '#0a0a12',
@@ -118,6 +116,7 @@ export function BrowserPreview({
         const fitAddon = new FitAddon()
         term.loadAddon(fitAddon)
         term.open(el)
+        fitAddon.fit() // fills container dimensions → sets actual cols/rows
 
         const stdout = makeStdout(term)
         const stdin = makeStdin(term)
