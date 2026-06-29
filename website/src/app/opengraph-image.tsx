@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'TermUI — TypeScript framework for terminal user interfaces'
+export const alt = 'TermUI — TypeScript framework for building terminal apps'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -77,7 +77,7 @@ export default function OgImage() {
                             fontWeight: 600,
                         }}
                     >
-                        Build terminal UIs in TypeScript. No React.
+                        Build terminal apps in TypeScript. No React.
                     </div>
 
                     <div style={{ display: 'flex', gap: '36px', marginTop: '40px', fontSize: '28px', color: '#9898b8' }}>
