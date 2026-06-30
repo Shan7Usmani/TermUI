@@ -611,7 +611,7 @@ export function createStore<T extends object>(
 
 export interface UseStore<T> {
     (): T;
-    <U>(selector: Selector<T, U>): U;
+    <U>(selector: Selector<T, U>, equalityFn?: EqualityFn<U>): U;
     getState: GetState<T>;
     setState: SetState<T>;
     mutate(recipe: (draft: T) => void): void;
