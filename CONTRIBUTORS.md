@@ -47,10 +47,10 @@ We want to thank all the amazing contributors who have helped make TermUI what i
 | <img src="https://avatars.githubusercontent.com/u/175478183?v=4" width="40" height="40" style="border-radius: 50%;" alt="abhijnyan-codes" /> | [@abhijnyan-codes](https://github.com/abhijnyan-codes) | 7 |
 | <img src="https://avatars.githubusercontent.com/u/194805397?v=4" width="40" height="40" style="border-radius: 50%;" alt="Krushnakant-08" /> | [@Krushnakant-08](https://github.com/Krushnakant-08) | 6 |
 | <img src="https://avatars.githubusercontent.com/u/227770746?v=4" width="40" height="40" style="border-radius: 50%;" alt="palak170306-design" /> | [@palak170306-design](https://github.com/palak170306-design) | 6 |
+| <img src="https://avatars.githubusercontent.com/u/190835460?v=4" width="40" height="40" style="border-radius: 50%;" alt="Shan7Usmani" /> | [@Shan7Usmani](https://github.com/Shan7Usmani) | 6 |
 | <img src="https://avatars.githubusercontent.com/u/187929630?v=4" width="40" height="40" style="border-radius: 50%;" alt="16Rohan" /> | [@16Rohan](https://github.com/16Rohan) | 5 |
 | <img src="https://avatars.githubusercontent.com/u/222508176?v=4" width="40" height="40" style="border-radius: 50%;" alt="anchallll02" /> | [@anchallll02](https://github.com/anchallll02) | 5 |
 | <img src="https://avatars.githubusercontent.com/u/56977249?v=4" width="40" height="40" style="border-radius: 50%;" alt="VirenSumbly" /> | [@VirenSumbly](https://github.com/VirenSumbly) | 5 |
-| <img src="https://avatars.githubusercontent.com/u/190835460?v=4" width="40" height="40" style="border-radius: 50%;" alt="Shan7Usmani" /> | [@Shan7Usmani](https://github.com/Shan7Usmani) | 5 |
 | <img src="https://avatars.githubusercontent.com/u/239756893?v=4" width="40" height="40" style="border-radius: 50%;" alt="aanyacloud" /> | [@aanyacloud](https://github.com/aanyacloud) | 5 |
 | <img src="https://avatars.githubusercontent.com/u/161721278?v=4" width="40" height="40" style="border-radius: 50%;" alt="AnantTirupati" /> | [@AnantTirupati](https://github.com/AnantTirupati) | 5 |
 | <img src="https://avatars.githubusercontent.com/u/88627165?v=4" width="40" height="40" style="border-radius: 50%;" alt="RangeR107" /> | [@RangeR107](https://github.com/RangeR107) | 5 |
